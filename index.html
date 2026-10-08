@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ما وراء الصورة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050914;--card:rgba(255,255,255,.06);--line:rgba(140,180,255,.2);--tx:#e8eefc;--mut:#9fb0d3;--ac:#4fd1ff;--ac2:#7c6cff;--ok:#34d399;--bad:#fb7185;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Tajawal',Tahoma,Arial,sans-serif;line-height:1.9;font-size:17px;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;background:
+radial-gradient(1.5px 1.5px at 12% 20%,#fff,transparent),radial-gradient(1px 1px at 70% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 85% 60%,#cfe3ff,transparent),radial-gradient(1px 1px at 30% 75%,#fff,transparent),radial-gradient(1px 1px at 55% 45%,#fff,transparent),radial-gradient(1.5px 1.5px at 6% 88%,#cfe3ff,transparent),
+radial-gradient(60% 50% at 80% 0,rgba(124,108,255,.25),transparent),radial-gradient(50% 40% at 10% 100%,rgba(79,209,255,.18),transparent);background-size:300px 300px,420px 420px,360px 360px,280px 280px,500px 500px,340px 340px,100% 100%,100% 100%}
+section{max-width:900px;margin:auto;padding:72px 20px}
+h1,h2{line-height:1.4;margin:0 0 14px}
+h2{font-size:clamp(26px,5vw,38px)}
+p{color:var(--mut);margin:0 0 14px}
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.hero h1{font-size:clamp(40px,10vw,76px);font-weight:800;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(79,209,255,.3)}
+.hero .q{font-size:clamp(20px,4vw,28px);color:var(--tx);max-width:640px;font-weight:500}
+.scope{width:110px;height:110px;border-radius:50%;border:2px solid var(--ac);box-shadow:0 0 30px rgba(79,209,255,.4),inset 0 0 20px rgba(79,209,255,.2);position:relative;margin-bottom:24px;animation:fl 5s ease-in-out infinite}
+.scope:before,.scope:after{content:"";position:absolute;background:var(--ac);opacity:.7}
+.scope:before{left:50%;top:-14px;bottom:-14px;width:1px}.scope:after{top:50%;left:-14px;right:-14px;height:1px}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+.btn{font:inherit;font-weight:700;font-size:18px;min-height:54px;padding:12px 30px;border-radius:14px;border:1px solid var(--line);color:var(--tx);background:var(--card);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:.2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--ac)}
+.btn.p{background:linear-gradient(90deg,var(--ac),var(--ac2));color:#04101f;border:0;box-shadow:0 0 24px rgba(79,209,255,.35)}
+.glass{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:18px}
+.tag{display:inline-block;color:var(--ac);font-size:14px;font-weight:700;letter-spacing:.5px;margin-bottom:8px}
+.chip{font-size:15px}.chip b{display:block;color:var(--ac);font-size:22px}
+.rv{opacity:0;transform:translateY(24px);transition:.7s}
+.rv.in{opacity:1;transform:none}
+.bar{height:8px;background:rgba(255,255,255,.1);border-radius:8px;overflow:hidden;margin:6px 0 18px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:.5s}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:15px}
+.scen{color:var(--tx);font-size:18px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:right;font:inherit;color:var(--tx);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:10px;cursor:pointer;min-height:56px;transition:.2s}
+.opt:hover:not(:disabled){border-color:var(--ac);background:rgba(79,209,255,.08)}
+.opt span{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(79,209,255,.15);color:var(--ac);display:grid;place-items:center;font-weight:700;font-size:14px;font-family:Arial,sans-serif}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--ok);background:rgba(52,211,153,.12)}
+.opt.bad{border-color:var(--bad);background:rgba(251,113,133,.12)}
+.fb{margin-top:16px;padding:16px;border-radius:14px;animation:up .4s}
+.fb.ok{background:rgba(52,211,153,.12);border:1px solid var(--ok)}
+.fb.bad{background:rgba(251,113,133,.12);border:1px solid var(--bad)}
+.fb b{display:block;margin-bottom:4px}
+@keyframes up{from{opacity:0;transform:translateY(10px)}}
+.card{cursor:pointer;text-align:right;font:inherit;color:var(--tx);transition:.3s;min-height:150px}
+.card:hover{transform:translateY(-4px);border-color:var(--ac)}
+.card .ic{font-size:34px}.card h3{margin:6px 0;font-size:19px}
+.card .more{display:none;color:var(--mut);font-size:15px;margin-top:6px}
+.card.open .more{display:block;animation:up .3s}
+.card.open{border-color:var(--ac);box-shadow:0 0 22px rgba(79,209,255,.2)}
+.res{text-align:center}
+.res .big{font-size:clamp(30px,7vw,46px);font-weight:800;color:var(--ac)}
+.end{text-align:center;font-size:clamp(24px,5vw,38px);font-weight:800;padding:90px 20px 40px;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+footer{max-width:900px;margin:auto;padding:20px 20px 60px}
+footer a{color:var(--ac);word-break:break-all}
+footer li{margin-bottom:10px;color:var(--mut)}
+nav{position:sticky;top:0;z-index:5;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:rgba(5,9,20,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;gap:18px;justify-content:center;overflow-x:auto;white-space:nowrap;font-size:15px}
+nav a{color:var(--mut);text-decoration:none}nav a:hover{color:var(--ac)}
+.hidden{display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav><a href="#top">البداية</a><a href="#meta">Metadata</a><a href="#vuln">الثغرات</a><a href="#scn">هل تكتشف الاختراق؟</a><a href="#tips">الحماية</a><a href="#quiz">اختبر معلوماتك</a><a href="#src">المصادر</a></nav>
+
+<section class="hero" id="top">
+  <div class="scope" aria-hidden="true"></div>
+  <h1>ما وراء الصورة</h1>
+  <p class="q">التقطت صورة للسماء… لكن هل تعرف ماذا كشفت معها؟</p>
+  <p>دليل تفاعلي لهواة الرصد والتصوير الفلكي للتعرّف على مخاطر البيانات الوصفية والثغرات الأمنية.</p>
+  <div class="btns"><a class="btn p" href="#scn">ابدأ الاختبار</a><a class="btn" href="#meta">تعرّف على الخطر</a></div>
+</section>
+
+<section id="meta" class="rv">
+  <span class="tag">01 · البيانات الخفية</span>
+  <h2>الصورة تحمل أكثر مما تراه</h2>
+  <p>الصورة الرقمية قد تحتوي على معلومات إضافية غير ظاهرة، تُسمّى <b style="color:var(--tx)">Metadata</b> أو «البيانات الوصفية». تُحفظ مع ملف الصورة وتصفها وتصف ظروف التقاطها.</p>
+  <div class="grid">
+    <div class="glass chip"><b>📷</b>نوع الجهاز</div>
+    <div class="glass chip"><b>🕒</b>وقت التقاط الصورة</div>
+    <div class="glass chip"><b>⚙️</b>إعدادات التصوير</div>
+    <div class="glass chip"><b>📍</b>الموقع الجغرافي في بعض الحالات</div>
+  </div>
+  <p style="margin-top:16px">ظهور هذه المعلومات يعتمد على الجهاز وإعداداته وطريقة حفظ الصورة ومشاركتها؛ فبعض المنصات تزيل جزءًا منها عند الرفع، وبعضها لا يفعل.</p>
+</section>
+
+<section id="vuln" class="rv">
+  <span class="tag">02 · الثغرات الأمنية</span>
+  <h2>أجهزة الرصد أجهزة متصلة</h2>
+  <p>الأجهزة والبرامج المستخدمة في الرصد الفلكي، مثل الحواسيب والتطبيقات وأجهزة التحكم المتصلة بالشبكة، قد تحتوي على ثغرات أمنية. وعدم تحديث الأنظمة والبرامج قد يعرّض الجهاز للوصول غير المصرّح به أو لاستغلال بعض وظائفه.</p>
+  <div class="glass"><b>الخلاصة:</b> التحديثات الأمنية تسدّ ثغرات معروفة. تأجيلها يترك الباب مفتوحًا.</div>
+</section>
+
+<section id="scn" class="rv">
+  <span class="tag">03 · تحدٍّ تفاعلي</span>
+  <h2>هل تستطيع اكتشاف الاختراق؟</h2>
+  <div class="glass" id="scnBox"></div>
+</section>
+
+<section id="tips" class="rv">
+  <span class="tag">04 · الحماية</span>
+  <h2>كيف تحمي نفسك؟</h2>
+  <p>اضغط على أي بطاقة لتفتح التفاصيل.</p>
+  <div class="grid" id="cards"></div>
+</section>
+
+<section id="quiz" class="rv">
+  <span class="tag">05 · الاختبار</span>
+  <h2>اختبر معلوماتك</h2>
+  <div class="glass" id="quizBox"></div>
+</section>
+
+<div class="end">راقب السماء… واحمِ ما وراء الصورة.</div>
+
+<footer id="src">
+  <h2>المصادر</h2>
+  <ul>
+    <li>CISA – تحديث البرامج: <a href="https://www.cisa.gov/secure-our-world/update-software" target="_blank" rel="noopener">cisa.gov/secure-our-world/update-software</a></li>
+    <li>CISA – المصادقة متعددة العوامل: <a href="https://www.cisa.gov/secure-our-world/turn-on-mfa" target="_blank" rel="noopener">cisa.gov/secure-our-world/turn-on-mfa</a></li>
+    <li>CISA – كلمات المرور القوية: <a href="https://www.cisa.gov/secure-our-world/use-strong-passwords" target="_blank" rel="noopener">cisa.gov/secure-our-world/use-strong-passwords</a></li>
+    <li>NIST SP 800-40 Rev. 4 – إدارة التحديثات الأمنية: <a href="https://csrc.nist.gov/pubs/sp/800/40/r4/final" target="_blank" rel="noopener">csrc.nist.gov/pubs/sp/800/40/r4/final</a></li>
+    <li>CIPA – معيار Exif للبيانات الوصفية للصور: <a href="https://www.cipa.jp/e/std/std-sec.html" target="_blank" rel="noopener">cipa.jp/e/std/std-sec.html</a></li>
+    <li>الهيئة الوطنية للأمن السيبراني (السعودية): <a href="https://nca.gov.sa" target="_blank" rel="noopener">nca.gov.sa</a></li>
+  </ul>
+  <p style="font-size:14px">المحتوى توعوي فقط ولا يتضمن أي خطوات أو أكواد اختراق.</p>
+</footer>
+
+<script>
+var L=['A','B','C','D'];
+function Q(box,qs,opt){
+  var i=0,score=0,done=false;
+  function render(){
+    var q=qs[i],pct=Math.round(i/qs.length*100);
+    box.innerHTML='<div class="meta"><span>السؤال '+(i+1)+' من '+qs.length+'</span><span>'+pct+'%</span></div><div class="bar"><i style="width:'+pct+'%"></i></div>'+
+    (q.s?'<p class="scen">'+q.s+'</p>':'')+'<h3 style="margin:0 0 6px">'+q.q+'</h3><div id="o"></div><div id="f"></div>';
+    var o=box.querySelector('#o');
+    q.o.forEach(function(t,k){
+      var b=document.createElement('button');b.className='opt';b.innerHTML='<span>'+L[k]+'</span><div>'+t+'</div>';
+      b.onclick=function(){pick(k)};o.appendChild(b);
+    });
+  }
+  function pick(k){
+    var q=qs[i],bs=box.querySelectorAll('.opt'),f=box.querySelector('#f'),ok=k===q.a;
+    bs.forEach(function(b){b.disabled=true});
+    bs[q.a].classList.add('ok');
+    if(ok){score++;f.innerHTML='<div class="fb ok"><b>✅ إجابة صحيحة!</b>'+q.e+'</div>'}
+    else{bs[k].classList.add('bad');f.innerHTML='<div class="fb bad"><b>❌ إجابة غير صحيحة</b>'+(q.w&&q.w[k]?q.w[k]+' ':'')+'<br><b style="margin-top:8px">الإجابة الصحيحة هي '+L[q.a]+':</b>'+q.e+'</div>'}
+    var n=document.createElement('button');n.className='btn p';n.style.marginTop='16px';
+    n.textContent=i<qs.length-1?'السؤال التالي ←':'عرض النتيجة';
+    n.onclick=function(){i++;i<qs.length?render():end()};
+    f.appendChild(n);
+  }
+  function end(){
+    var r=opt.result(score,qs.length);
+    box.innerHTML='<div class="res"><div class="bar"><i style="width:100%"></i></div><div class="big">'+r+'</div><p>'+(opt.note||'')+'</p><div class="btns"><button class="btn p" id="rt">إعادة المحاولة</button>'+(opt.next?'<a class="btn" href="'+opt.next+'">'+opt.nt+'</a>':'')+'</div></div>';
+    box.querySelector('#rt').onclick=function(){i=0;score=0;render()};
+  }
+  render();
+}
+Q(document.getElementById('scnBox'),[
+{s:'أنت هاوي رصد فلكي، وفي إحدى الليالي التقطت صورة للسماء باستخدام جهازك، وبعدها قررت مشاركتها مع مجموعة من هواة الرصد.<br>بعد فترة قصيرة، لاحظت أن جهازك بدأ يتصرف بطريقة غريبة، وظهرت بعض التغييرات في إعداداته بدون أن تقوم أنت بها.',
+ q:'برأيك، وش ممكن يكون السبب؟',
+ o:['الجهاز فيه خلل مؤقت.','أحد التطبيقات أو البرامج يحتاج تحديث.','الجهاز تعرض لمحاولة وصول غير مصرح بها بسبب ثغرة أمنية.','الصورة نفسها سببت المشكلة.'],a:2,
+ w:['الخلل المؤقت ممكن، لكن تغيّر الإعدادات دون تدخلك مؤشر يستحق الفحص الأمني ولا يصح تجاهله.','عدم التحديث قد يكون سببًا غير مباشر، لكنه لا يفسّر وحده تغيّر الإعدادات من تلقاء نفسها.',,'مشاركة صورة عادية لا تغيّر إعدادات جهازك بحد ذاتها.'],
+ e:'قد تكون هناك ثغرة أمنية تم استغلالها للوصول إلى الجهاز، خصوصًا إذا كان النظام أو أحد البرامج غير محدث.'},
+{s:'قبل حدوث المشكلة، كنت قد نشرت صورة الرصد في حسابك.',
+ q:'وش الشيء اللي كان ممكن تكشفه الصورة بدون ما تنتبه؟',
+ o:['اسم جميع الأشخاص الموجودين حولك.','Metadata تحتوي على معلومات عن الصورة والجهاز.','كلمة مرور جهازك تلقائيًا.','لا يمكن أن تحتوي الصورة على أي معلومات إضافية.'],a:1,
+ w:['الصورة لا تحفظ أسماء الأشخاص من حولك تلقائيًا.',,'الصور لا تحمل كلمات المرور.','غير صحيح؛ الصور الرقمية قد تحمل بيانات وصفية إضافية.'],
+ e:'قد تتضمن Metadata معلومات مثل وقت التقاط الصورة، نوع الجهاز وإعدادات التصوير، وقد تتضمن معلومات الموقع في بعض الحالات، بحسب الجهاز وإعداداته وطريقة مشاركة الصورة.'},
+{q:'اكتشفت أن جهازك قد يكون معرضًا للخطر، وش تسوي؟',
+ o:['أتجاهل الموضوع وأكمل استخدام الجهاز.','أحذف الصور فقط.','أنشر الصورة مرة ثانية للتأكد.','أحدث النظام والبرامج، وأراجع إعدادات الأمان والخصوصية، وأتأكد من البيانات الموجودة في الصور قبل مشاركتها.'],a:3,
+ w:['التجاهل يترك الثغرة مفتوحة وقد يزيد الضرر.','حذف الصور لا يعالج الثغرة في النظام أو البرامج.','إعادة النشر قد تكشف البيانات نفسها مرة أخرى دون أي فائدة.'],
+ e:'التحديث ومراجعة إعدادات الأمان والخصوصية وفحص بيانات الصور قبل مشاركتها هي خطوات تعالج السبب وتقلل التعرّض.'}
+],{result:function(s,n){return s+'/'+n+(s==n?' – عين فاحصة! 🔭':' – راجع التفسيرات وأعد المحاولة')},note:'أكملت التحدي. تابع إلى قسم الحماية.',next:'#tips',nt:'كيف تحمي نفسك؟'});
+
+var tips=[['🔄','حدّث أجهزتك وبرامجك','لا تؤجل التحديثات الأمنية.','التحديثات تسدّ ثغرات معروفة؛ فعّل التحديث التلقائي حيث أمكن.'],
+['🔒','احمِ حساباتك','استخدم كلمات مرور قوية والمصادقة متعددة العوامل عندما تكون متاحة.','كلمة مرور فريدة لكل حساب، ومدير كلمات مرور يساعدك على ذلك.'],
+['🖼️','راجع صورك قبل نشرها','تأكد من المعلومات والبيانات المرتبطة بالصور.','اطّلع على خصائص الصورة، وأزل البيانات التي لا تريد كشفها.'],
+['📍','انتبه لمعلومات الموقع','راجع إعدادات الموقع والخصوصية قبل مشاركة الصور.','تحقق من إذن الموقع لتطبيق الكاميرا وخيارات المشاركة.'],
+['🛡️','لا تتجاهل السلوك الغريب','إذا لاحظت نشاطًا غير معتاد على جهازك، تعامل معه كإشارة تستحق التحقق.','تغيّر إعدادات لم تغيّرها أو بطء مفاجئ أو اتصال غير مفهوم، أسباب كافية للفحص.']];
+var cs=document.getElementById('cards');
+tips.forEach(function(t){var b=document.createElement('button');b.className='glass card';b.innerHTML='<div class="ic">'+t[0]+'</div><h3>'+t[1]+'</h3><div>'+t[2]+'</div><div class="more">'+t[3]+'</div>';b.onclick=function(){b.classList.toggle('open')};cs.appendChild(b)});
+
+Q(document.getElementById('quizBox'),[
+{q:'ما هي Metadata؟',o:['فلتر ألوان يُضاف للصورة.','بيانات وصفية مخزّنة مع الملف تصف الصورة وظروف التقاطها.','برنامج لحماية الأجهزة.','نوع من ضغط الصور فقط.'],a:1,e:'Metadata هي معلومات إضافية مرافقة للصورة، مثل وقت التقاطها والجهاز المستخدم.',w:['الفلتر يغيّر شكل الصورة ولا يصف بياناتها.',,'هي ليست برنامج حماية.','هي أوسع من مجرد الضغط.']},
+{q:'ما نوع المعلومات التي قد تحتوي عليها الصورة؟',o:['كلمات مرور حساباتك.','لا شيء على الإطلاق.','وقت الالتقاط ونوع الجهاز والإعدادات، وأحيانًا الموقع.','محتوى رسائلك الخاصة.'],a:2,e:'قد تشمل الوقت والجهاز وإعدادات التصوير، وأحيانًا الموقع بحسب الإعدادات وطريقة المشاركة.',w:['الصور لا تخزّن كلمات المرور.','قد تحمل الصورة بيانات وصفية.',,'الصور لا تحمل رسائلك.']},
+{q:'لماذا تحديث الأجهزة والبرامج مهم؟',o:['لأنه يسدّ ثغرات أمنية معروفة.','لتغيير شكل الواجهة فقط.','لا فائدة أمنية منه.','لأنه يحذف الصور القديمة.'],a:0,e:'التحديثات الأمنية تعالج ثغرات قد تُستغل للوصول غير المصرّح به.',w:[,'التحديثات قد تغيّر الواجهة، لكن أهمها أمني.','بل هو من أهم وسائل الحماية.','التحديث لا يحذف صورك.']},
+{q:'ماذا تفعل عند ملاحظة سلوك غير طبيعي في جهازك؟',o:['أتجاهله لأنه سيزول.','أنشر الصورة مجددًا.','أتعامل معه كإشارة للتحقق: أحدّث وأراجع الإعدادات وأغيّر كلمات المرور.','أحذف تطبيق الكاميرا فقط.'],a:2,e:'السلوك الغريب مؤشر يستحق التحقق: حدّث النظام وراجع الإعدادات وغيّر كلمات المرور.',w:['التجاهل قد يترك المشكلة تتفاقم.','إعادة النشر لا علاقة لها بالحل.',,'حذف تطبيق واحد لا يعالج المشكلة.']},
+{q:'ما أفضل طريقة للتعامل مع الصور قبل مشاركتها؟',o:['مشاركتها كما هي دائمًا.','مراجعة بياناتها ومعلومات الموقع وإزالة ما لا أريد كشفه.','تغيير اسم الملف فقط.','الاعتماد على أن كل المنصات تحذف البيانات.'],a:1,e:'راجع البيانات المرتبطة بالصورة وإعدادات الموقع، وأزل ما لا ترغب بكشفه قبل النشر.',w:['قد تكشف بيانات لا تقصدها.',,'تغيير الاسم لا يزيل البيانات الوصفية.','المنصات تختلف؛ بعضها لا يزيل البيانات.']}
+],{result:function(s,n){return s==5?'5/5 – خبير في حماية الرصد 🔭🛡️':s==4?'4/5 – ممتاز، باقي خطوة!':s==3?'3/5 – تحتاج تراجع بعض أساسيات الحماية.':s+'/5 – حان وقت رفع مستوى الوعي الأمني.'}});
+
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>
